@@ -21,8 +21,8 @@ public class WebSecurity {
     return  http.csrf(csrf -> csrf.disable())
       .authorizeHttpRequests(authorizeHttpRequests -> {
         authorizeHttpRequests
-          .requestMatchers("/reg/*","/authenticate","/concernCont/putConcern").permitAll()
-          .requestMatchers("/report/add").hasRole("ROLE_SALES");
+          .requestMatchers("/reg/*","/authenticate","/concernCont/putConcern").permitAll();
+          //.requestMatchers("/report/add").hasRole("ROLE_SALES");
       } )
       .sessionManagement(sessionManagement ->
         sessionManagement

@@ -34,7 +34,7 @@ public class AuthenticationController {
   public AuthenticationResponse createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, HttpServletResponse response) throws BadCredentialsException, DisabledException, UsernameNotFoundException, IOException {
 
     try {
-      authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
+      authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getOfficialEmail(), authenticationRequest.getPassword()));
     } catch (BadCredentialsException e) {
       throw new BadCredentialsException("Incorrect username or password!");
     } catch (DisabledException disabledException) {
@@ -42,7 +42,7 @@ public class AuthenticationController {
       return null;
     }
 
-    final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
+    final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getOfficialEmail());
     final String jwt = jwtUtil.generateToken(userDetails.getUsername());
     return new AuthenticationResponse(jwt);
 
